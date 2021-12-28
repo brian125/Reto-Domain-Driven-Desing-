@@ -13,7 +13,7 @@ public class Calidad extends AggregateEvent<CalidadId> {
 
     protected Set<Producto> producto;
     protected EmpleadoCalidad empleadoCalidad;
-    protected Norma norma;
+    protected Set<Norma> norma;
 
     public Calidad(CalidadId calidadId,Producto producto, EmpleadoCalidad empleadoCalidad, Norma norma) {
         super(calidadId);
@@ -52,14 +52,15 @@ public class Calidad extends AggregateEvent<CalidadId> {
         appendChange(new NombreEmpleadoCalidadCambiado(nombre));
     }
 
-    //TODO generar pautas Norma, tambien en la clase norma
-    public void generarNorma(){
-
+    public void generarNorma(NombreNorma nombreNorma, PautasNorma pautasNorma){
+        Objects.requireNonNull(nombreNorma, "El nombre de la norma no puede ir vacio");
+        Objects.requireNonNull(pautasNorma, "Las pautas de la norma no pueden ir vacias");
+        appendChange(new NormaGenerada(nombreNorma, pautasNorma));
     }
 
-    //TODO RevisarPautasNorma tambein en la clase norma
-    public void revisarCumplimientoPautasNorma(){
-
+    public void revisarCumplimientoPautasNorma(PautasNorma pautasNorma){
+        Objects.requireNonNull(pautasNorma, "Las pautas de la norma no pueden estar vacias");
+        appendChange(new NormaRevisada(pautasNorma));
     }
 
     public void asignarProducto(ProductoId productoId, NombreProducto nombreProducto, ProductoACalidad productoACalidad){
@@ -77,7 +78,7 @@ public class Calidad extends AggregateEvent<CalidadId> {
         return empleadoCalidad;
     }
 
-    public Norma norma() {
+    public Set<Norma> getNorma() {
         return norma;
     }
 }

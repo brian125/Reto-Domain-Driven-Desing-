@@ -1,6 +1,7 @@
 package co.com.sofka.vino.pedido.events;
 
 import co.com.sofka.domain.generic.DomainEvent;
+import co.com.sofka.vino.pedido.values.PedidoId;
 import co.com.sofka.vino.pedido.values.SolicitudCliente;
 
 public class SolicitudClienteGenerada extends DomainEvent {

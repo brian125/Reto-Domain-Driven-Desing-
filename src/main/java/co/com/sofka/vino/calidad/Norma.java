@@ -19,14 +19,14 @@ public class Norma extends Entity<NormaId> {
         this.pautasNorma = pautasNorma;
     }
 
-    public void actualizarNombreNorma(NombreNorma nombreNorma){
+    public void actualizarNombreNorma(NombreNorma nombreNorma, PautasNorma pautasNorma){
         Objects.requireNonNull(nombreNorma, "El nombre de la norma de calidad no puede ir vacio");
         this.nombreNorma = nombreNorma;
     }
 
-    //TODO mirar como vamos a solucionar el problema de las pautas para pasar las normas
-    public void revisarCumplimientoPautasNorma(List pautasNorma) {
-
+    public void revisarCumplimientoPautasNorma(PautasNorma pautasNorma) {
+        Objects.requireNonNull(pautasNorma, "Las pautas de la norma no pueden ir vacias");
+        this.pautasNorma = pautasNorma;
     }
 
     public NombreNorma nombreNorma() {

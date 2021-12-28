@@ -27,8 +27,13 @@ public class Material extends Entity<MaterialId> {
         this.otro = otro;
     }
 
-    public void revisarDisponibilidad(Boolean disponible){
-        //TODO: Hacer que el fabricante revise la disponibilidad de los materiales para fabricar el producto
+    public void revisarDisponibilidad(Uva uva, String levadura, String azucar, String otro){
+        Objects.requireNonNull(uva, "La uva no puede estar vacia");
+        Objects.requireNonNull(levadura, "La levadura no puede estar vacia");
+        Objects.requireNonNull(azucar, "El azucar no puede estar vacio");
+        this.uva = uva;
+        this.levadura = levadura;
+        this.azucar = azucar;
     }
 
     public Uva uva() {

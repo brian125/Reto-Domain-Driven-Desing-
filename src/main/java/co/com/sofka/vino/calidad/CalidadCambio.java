@@ -1,6 +1,7 @@
 package co.com.sofka.vino.calidad;
 
 import co.com.sofka.domain.generic.EventChange;
+import co.com.sofka.vino.calidad.commands.RevisarCumplimientoPautasNorma;
 import co.com.sofka.vino.calidad.events.*;
 
 import java.util.HashSet;
@@ -39,6 +40,17 @@ public class CalidadCambio extends EventChange {
                 calidad.empleadoCalidad.generarResultadosCalidad(
                         evento.getResultadoCalidad(),
                         evento.getDetalle()
+                ));
+
+        apply((NormaGenerada evento) ->
+                calidad.generarNorma(
+                        evento.getNombreNorma(),
+                        evento.getPautasNorma()
+                ));
+
+        apply((NormaRevisada evento) ->
+                calidad.revisarCumplimientoPautasNorma(
+                        evento.getPautasNorma()
                 ));
     }
 }

@@ -7,7 +7,7 @@ import co.com.sofka.business.support.ResponseEvents;
 import co.com.sofka.vino.pedido.Pedido;
 import co.com.sofka.vino.pedido.commands.AgregarQuejaReclamoSugerenciaComando;
 
-public class AgregarQuejaReclamoSugerenciaCasoUso extends UseCase<RequestCommand<AgregarQuejaReclamoSugerenciaComando>, ResponseEvents> {
+    public class AgregarQuejaReclamoSugerenciaCasoUso extends UseCase<RequestCommand<AgregarQuejaReclamoSugerenciaComando>, ResponseEvents> {
 
 
     @Override
