@@ -14,7 +14,7 @@ public class GenerarResultadoCalidadCasoUso extends UseCase<RequestCommand<Gener
         var comando = RequestCommand.getCommand();
         var calidad = Calidad.from(comando.getCalidadId(), retrieveEvents());
 
-        if((comando.getResultadoCalidad().isBlank()) || (comando.getDetalle().isBlank())){
+        if(!((comando.getResultadoCalidad().isBlank()) || (comando.getDetalle().isBlank()))){
             throw new BusinessException(comando.getCalidadId().value(),"Para generar un resultado de calidad no puede dejar el resultado y el detalle en blanco");
         }
 

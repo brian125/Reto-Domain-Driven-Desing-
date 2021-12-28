@@ -4,6 +4,7 @@ import co.com.sofka.domain.generic.EventChange;
 import co.com.sofka.vino.pedido.events.*;
 import co.com.sofka.vino.pedido.values.SolicitudCliente;
 
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 public class PedidoCambio extends EventChange {
@@ -48,7 +49,7 @@ public class PedidoCambio extends EventChange {
         apply((PedidoAgregado evento) -> {
             pedido.factura = evento.getFactura();
             pedido.cliente = evento.getCliente();
-            pedido.quejaReclamoSugerencia = evento.getQuejaReclamoSugerencia();
+            pedido.quejaReclamoSugerencia = new HashSet<>();
             pedido.fabricaId = evento.getFabricaId();
         });
 
@@ -67,7 +68,7 @@ public class PedidoCambio extends EventChange {
         });
 
         apply((SolicitudClienteGenerada evento) -> {
-            pedido.cliente.generarSolicitud(evento.getCantidad());
+            pedido.cliente.generarSolicitud(evento.getSolicitudCliente());
         });
 
     }

@@ -15,12 +15,12 @@ public class GenerarSolicitudClienteCasoUso extends UseCase<RequestCommand<Gener
         var comando = requestCommand.getCommand();
         var pedido = Pedido.from(comando.getPedidoId(), retrieveEvents());
 
-        if(comando.getCantidad() <= 0){
-            throw new BusinessException(comando.getCantidad().toString(), "La cantidad solicitada por el cliente no es valida");
+        if(!(comando.getSolicitudCliente()==null)){
+            throw new BusinessException(comando.getSolicitudCliente().toString(), "La cantidad solicitada por el cliente no es valida");
         }
 
         pedido.generarSolicutudCliente(
-                comando.getCantidad()
+                comando.getSolicitudCliente()
         );
 
         emit().onResponse(new ResponseEvents(pedido.getUncommittedChanges()));

@@ -18,7 +18,7 @@ public class Pedido extends AggregateEvent<PedidoId> {
     protected Set<QuejaReclamoSugerencia> quejaReclamoSugerencia;
     protected FabricaId fabricaId;
 
-    public Pedido(PedidoId pedidoId, Factura factura, Cliente cliente, Set<QuejaReclamoSugerencia> quejaReclamoSugerencia,FabricaId fabricaId) {
+    public Pedido(PedidoId pedidoId, Factura factura, Cliente cliente, QuejaReclamoSugerencia quejaReclamoSugerencia,FabricaId fabricaId) {
         super(pedidoId);
         subscribe(new PedidoCambio(this));
         appendChange(new PedidoAgregado(pedidoId,factura,cliente,quejaReclamoSugerencia,fabricaId));
@@ -75,9 +75,9 @@ public class Pedido extends AggregateEvent<PedidoId> {
         appendChange(new ClienteActualizado(nombre, telefono));
     }
 
-    public void generarSolicutudCliente(Integer cantidad){
-        Objects.requireNonNull(cantidad, "La  cantidad de la solicitud del cliente no puede ir vacia");
-        appendChange(new SolicitudClienteGenerada(cantidad));
+    public void generarSolicutudCliente(SolicitudCliente solicitudCliente){
+        Objects.requireNonNull(solicitudCliente, "La  cantidad de la solicitud del cliente no puede ir vacia");
+        appendChange(new SolicitudClienteGenerada(solicitudCliente));
     }
 
     public Set<QuejaReclamoSugerencia> quejaReclamoSugerencia() {

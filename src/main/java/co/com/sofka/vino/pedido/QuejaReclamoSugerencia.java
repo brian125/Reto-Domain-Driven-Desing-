@@ -15,11 +15,6 @@ public class QuejaReclamoSugerencia extends Entity<QuejaReclamoSugerenciaId> {
         this.comentario = comentario;
     }
 
-    public void asignarTipo(Boolean tipo){
-        Objects.requireNonNull(tipo, "El tipo de comentario no puede estar vacio");
-        this.comentario = new Comentario(this.comentario.value().detalle(), tipo);
-    }
-
     public void comprobarComentario(){
 
     }

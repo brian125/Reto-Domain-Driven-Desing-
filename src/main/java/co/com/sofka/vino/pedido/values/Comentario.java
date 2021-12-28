@@ -9,7 +9,7 @@ public class Comentario implements ValueObject<Comentario.Properties> {
     private final String detalle;
     private final Boolean tipoComentario;
 
-    public Comentario(String detalle, boolean tipoComentario) {
+    public Comentario(String detalle, Boolean tipoComentario) {
         this.detalle = detalle;
         this.tipoComentario = tipoComentario;
     }
@@ -19,7 +19,7 @@ public class Comentario implements ValueObject<Comentario.Properties> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Comentario that = (Comentario) o;
-        return tipoComentario == that.tipoComentario && Objects.equals(detalle, that.detalle);
+        return Objects.equals(detalle, that.detalle) && Objects.equals(tipoComentario, that.tipoComentario);
     }
 
     @Override

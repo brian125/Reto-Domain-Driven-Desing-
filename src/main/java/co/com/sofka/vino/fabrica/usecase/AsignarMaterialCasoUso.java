@@ -6,12 +6,13 @@ import co.com.sofka.business.support.RequestCommand;
 import co.com.sofka.business.support.ResponseEvents;
 import co.com.sofka.vino.fabrica.Fabrica;
 import co.com.sofka.vino.fabrica.commands.AgregarFabricaComando;
+import co.com.sofka.vino.fabrica.commands.AsignarMaterialComando;
 
-public class AsignarMaterialCasoUso extends UseCase<RequestCommand<AgregarFabricaComando>, ResponseEvents> {
+public class AsignarMaterialCasoUso extends UseCase<RequestCommand<AsignarMaterialComando>, ResponseEvents> {
 
 
     @Override
-    public void executeUseCase(RequestCommand<AgregarFabricaComando> requestCommand) {
+    public void executeUseCase(RequestCommand<AsignarMaterialComando> requestCommand) {
         var comando = requestCommand.getCommand();
         var fabrica = Fabrica.from(comando.getFabricaId(), retrieveEvents());
 
@@ -21,10 +22,10 @@ public class AsignarMaterialCasoUso extends UseCase<RequestCommand<AgregarFabric
 
         fabrica.asigarMaterial(
                 comando.getMaterialId(),
-                fabrica.material().uva(),
-                fabrica.material().levadura(),
-                fabrica.material().azucar(),
-                fabrica.material().otro()
+                comando.getUva(),
+                comando.getLevadura(),
+                comando.getAzucar(),
+                comando.getOtro()
         );
 
         emit().onResponse(new ResponseEvents(fabrica.getUncommittedChanges()));

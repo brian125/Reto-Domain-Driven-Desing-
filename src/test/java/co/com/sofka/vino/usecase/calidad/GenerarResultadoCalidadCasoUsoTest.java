@@ -5,14 +5,12 @@ import co.com.sofka.business.generic.UseCaseHandler;
 import co.com.sofka.business.repository.DomainEventRepository;
 import co.com.sofka.business.support.RequestCommand;
 import co.com.sofka.domain.generic.DomainEvent;
-import co.com.sofka.vino.calidad.Calidad;
 import co.com.sofka.vino.calidad.EmpleadoCalidad;
 import co.com.sofka.vino.calidad.Norma;
 import co.com.sofka.vino.calidad.Producto;
-import co.com.sofka.vino.calidad.commands.AsignarProductoComando;
 import co.com.sofka.vino.calidad.commands.GenerarResultadosCalidadComando;
 import co.com.sofka.vino.calidad.events.CalidadCreado;
-import co.com.sofka.vino.calidad.usecase.AsignarProductoCasoUso;
+import co.com.sofka.vino.calidad.events.ResultadoCalidadgenerado;
 import co.com.sofka.vino.calidad.usecase.GenerarResultadoCalidadCasoUso;
 import co.com.sofka.vino.calidad.values.*;
 import org.junit.jupiter.api.Assertions;
@@ -53,7 +51,31 @@ public class GenerarResultadoCalidadCasoUsoTest {
                     .orElseThrow();
         }).getMessage();
 
-        Assertions.assertEquals("El resultado de calidad ya ha sido asignado", mensaje);
+        Assertions.assertEquals("Para generar un resultado de calidad no puede dejar el resultado y el detalle en blanco", mensaje);
+    }
+
+    @Test
+    void generarResultadoCalidadError(){
+        //Arrange
+        CalidadId calidadId = CalidadId.fromString("C0001");
+        String resultadoCalidad = "Aprovado";
+        String detalle = "Producto bien empacado y en ecxelente estado";
+
+        var comando = new GenerarResultadosCalidadComando(calidadId, resultadoCalidad, detalle);
+        var casoUso = new GenerarResultadoCalidadCasoUso();
+
+        when(repository.getEventsBy("C0001")).thenReturn(eventoCalidadError());
+        casoUso.addRepository(repository);
+
+        //Act
+        var mensaje = Assertions.assertThrows(BusinessException.class, () -> {
+            UseCaseHandler.getInstance()
+                    .setIdentifyExecutor(calidadId.value())
+                    .syncExecutor(casoUso, new RequestCommand<>(comando))
+                    .orElseThrow();
+        }).getMessage();
+
+        Assertions.assertEquals("Para generar un resultado de calidad no puede dejar el resultado y el detalle en blanco", mensaje);
     }
 
     private List<DomainEvent> eventos(){
@@ -64,6 +86,12 @@ public class GenerarResultadoCalidadCasoUsoTest {
                 new EmpleadoCalidad(EmpleadoCalidadId.fromString("EC001"), new NombreEmpleadoCalidad("Brayan"), new ProductoAprovado("Aubert Pinot Noir Sonoma Coast", 250D), new ResultadoCalidad("Aprovado", "Tanto la botella como el producto estan en buen estado y cumplen las normas icontec")),
                 new Norma(new NormaId("N0001"), new NombreNorma("Tiempo fermentado"),  new PautasNorma("250 Dias"))
         ));
+        return events;
+    }
+
+    private List<DomainEvent> eventoCalidadError(){
+        var events = eventos();
+        events.add(new ResultadoCalidadgenerado("Aprovado", "Tanto la botella como el producto estan en buen estado y cumplen las normas icontec"));
         return events;
     }
 

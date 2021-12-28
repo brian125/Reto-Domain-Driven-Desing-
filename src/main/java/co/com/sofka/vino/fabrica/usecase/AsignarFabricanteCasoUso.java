@@ -17,7 +17,7 @@ public class AsignarFabricanteCasoUso extends UseCase<RequestCommand<AsignarFabr
         var fabrica = Fabrica.from(comando.getFabricaId(), retrieveEvents());
 
         if(!(fabrica.fabricante() == null)){
-            throw new BusinessException(comando.getFabricaId().value(), "El fabricante ya ha sido asignado");
+            throw new BusinessException(comando.getFabricaId().value(), "El material ya ha sido asignado");
         }
 
         fabrica.asignarFabricante(

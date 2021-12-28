@@ -24,9 +24,9 @@ public class Cliente extends Entity <ClienteId> {
         this.datosCliente = new DatosCliente(nombre,telefono);
     }
 
-    public void generarSolicitud(Integer cantidad){
-        Objects.requireNonNull(cantidad, "La solicitud del cliente no puede ir vacia");
-        this.solicitudCliente = new SolicitudCliente(cantidad);
+    public void generarSolicitud(SolicitudCliente solicitudCliente){
+        Objects.requireNonNull(solicitudCliente, "La solicitud del cliente no puede ir vacia");
+        this.solicitudCliente = new SolicitudCliente(solicitudCliente.value());
     }
 
     public SolicitudCliente solicitudCliente() {

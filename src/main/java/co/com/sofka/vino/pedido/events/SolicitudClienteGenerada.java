@@ -6,14 +6,14 @@ import co.com.sofka.vino.pedido.values.SolicitudCliente;
 
 public class SolicitudClienteGenerada extends DomainEvent {
 
-    private final Integer cantidad;
+    private final SolicitudCliente solicitudCliente;
 
-    public SolicitudClienteGenerada(Integer cantidad) {
+    public SolicitudClienteGenerada(SolicitudCliente solicitudCliente) {
         super("sofka.pedido.solicitudCliente");
-        this.cantidad = cantidad;
+        this.solicitudCliente = solicitudCliente;
     }
 
-    public Integer getCantidad() {
-        return cantidad;
+    public SolicitudCliente getSolicitudCliente() {
+        return solicitudCliente;
     }
 }
