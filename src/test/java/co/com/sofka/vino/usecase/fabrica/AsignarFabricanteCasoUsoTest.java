@@ -58,7 +58,7 @@ public class AsignarFabricanteCasoUsoTest {
                     .orElseThrow();
         }).getMessage();
 
-        Assertions.assertEquals("El fabricante ya ha sido asignado", mensaje);
+        Assertions.assertEquals("El material ya ha sido asignado", mensaje);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class AsignarFabricanteCasoUsoTest {
                     .orElseThrow();
         }).getMessage();
 
-        Assertions.assertEquals("El fabricante ya ha sido asignado", mensaje);
+        Assertions.assertEquals("El material ya ha sido asignado", mensaje);
     }
 
     private List<DomainEvent> eventos(){
